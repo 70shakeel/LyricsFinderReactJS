@@ -1,38 +1,25 @@
-import { getTrack, getLyrics } from '@/lib/musixmatch'
+import { getTrack } from '@/lib/lrclib'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 export async function generateMetadata({ params }) {
-  try {
-    const track = await getTrack(params.id)
-    return { title: `${track.track_name} – ${track.artist_name} | LyricFinder` }
-  } catch {
-    return { title: 'Lyrics | LyricFinder' }
-  }
+  const track = await getTrack(params.id)
+  if (!track) return { title: 'Lyrics | LyricFinder' }
+  return { title: `${track.trackName} – ${track.artistName} | LyricFinder` }
+}
+
+function formatDuration(seconds) {
+  if (!seconds) return 'N/A'
+  const m = Math.floor(seconds / 60)
+  const s = Math.floor(seconds % 60).toString().padStart(2, '0')
+  return `${m}:${s}`
 }
 
 export default async function LyricsPage({ params }) {
-  let track, lyrics
-  try {
-    ;[track, lyrics] = await Promise.all([getTrack(params.id), getLyrics(params.id)])
-  } catch {
-    notFound()
-  }
+  const track = await getTrack(params.id)
+  if (!track) notFound()
 
-  if (!track || !lyrics) notFound()
-
-  const genre =
-    track.primary_genres?.music_genre_list?.length > 0
-      ? track.primary_genres.music_genre_list[0].music_genre.music_genre_name
-      : 'N/A'
-
-  const releaseDate = track.updated_time
-    ? new Date(track.updated_time).toLocaleDateString('en-US', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-      })
-    : 'N/A'
+  const lyrics = track.plainLyrics || track.syncedLyrics?.replace(/\[\d{2}:\d{2}\.\d+\] ?/g, '') || null
 
   return (
     <>
@@ -42,28 +29,32 @@ export default async function LyricsPage({ params }) {
 
       <div className="card mb-4">
         <h5 className="card-header">
-          {track.track_name}{' '}
-          <span className="text-secondary fw-normal">by {track.artist_name}</span>
+          {track.trackName}{' '}
+          <span className="text-secondary fw-normal">by {track.artistName}</span>
         </h5>
         <div className="card-body">
-          <p className="card-text" style={{ whiteSpace: 'pre-line' }}>
-            {lyrics.lyrics_body || 'Lyrics not available.'}
-          </p>
+          {track.instrumental ? (
+            <p className="text-muted fst-italic">This is an instrumental track.</p>
+          ) : (
+            <p className="card-text" style={{ whiteSpace: 'pre-line' }}>
+              {lyrics || 'Lyrics not available.'}
+            </p>
+          )}
         </div>
       </div>
 
       <ul className="list-group mb-5">
         <li className="list-group-item">
-          <strong>Album ID</strong>: {track.album_id}
+          <strong>Album</strong>: {track.albumName || 'N/A'}
         </li>
         <li className="list-group-item">
-          <strong>Song Genre</strong>: {genre}
+          <strong>Duration</strong>: {formatDuration(track.duration)}
         </li>
         <li className="list-group-item">
-          <strong>Explicit Words</strong>: {track.explicit === 0 ? 'No' : 'Yes'}
+          <strong>Instrumental</strong>: {track.instrumental ? 'Yes' : 'No'}
         </li>
         <li className="list-group-item">
-          <strong>Release Date</strong>: {releaseDate}
+          <strong>Synced Lyrics</strong>: {track.syncedLyrics ? 'Available' : 'Not available'}
         </li>
       </ul>
     </>

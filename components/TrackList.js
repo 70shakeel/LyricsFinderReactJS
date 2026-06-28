@@ -4,9 +4,9 @@ import { useState } from 'react'
 import SearchBar from './SearchBar'
 import Track from './Track'
 
-export default function TrackList({ initialTracks, initialHeading }) {
-  const [tracks, setTracks] = useState(initialTracks ?? [])
-  const [heading, setHeading] = useState(initialHeading)
+export default function TrackList() {
+  const [tracks, setTracks] = useState([])
+  const [heading, setHeading] = useState('')
   const [loading, setLoading] = useState(false)
 
   function handleResults(newTracks, newHeading) {
@@ -25,13 +25,13 @@ export default function TrackList({ initialTracks, initialHeading }) {
         </div>
       ) : (
         <>
-          <h3 className="text-center mb-4">{heading}</h3>
-          {tracks.length === 0 ? (
+          {heading && <h3 className="text-center mb-4">{heading}</h3>}
+          {tracks.length === 0 && heading ? (
             <p className="text-center text-muted">No results found.</p>
           ) : (
             <div className="row">
-              {tracks.map((item) => (
-                <Track key={item.track.track_id} track={item.track} />
+              {tracks.map((track) => (
+                <Track key={track.id} track={track} />
               ))}
             </div>
           )}

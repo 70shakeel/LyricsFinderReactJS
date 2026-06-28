@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { searchTracks } from '@/lib/musixmatch'
+import { searchTracks } from '@/lib/lrclib'
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
