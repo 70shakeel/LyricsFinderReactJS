@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function Track({ track }) {
   return (
@@ -7,7 +6,8 @@ export default function Track({ track }) {
       <div className="card h-100 shadow-sm">
         <div className="card-body d-flex gap-3">
           {track.song_art_image_thumbnail_url && (
-            <Image
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
               src={track.song_art_image_thumbnail_url}
               alt={track.title}
               width={80}

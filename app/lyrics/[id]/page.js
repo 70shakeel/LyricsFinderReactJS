@@ -1,6 +1,5 @@
 import { getSong } from '@/lib/genius'
 import Link from 'next/link'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 export async function generateMetadata({ params }) {
@@ -22,7 +21,8 @@ export default async function LyricsPage({ params }) {
       <div className="card mb-4">
         <div className="card-body d-flex gap-4 flex-wrap">
           {song.song_art_image_url && (
-            <Image
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
               src={song.song_art_image_url}
               alt={song.title}
               width={180}
