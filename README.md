@@ -6,6 +6,17 @@ A dark-mode lyrics finder built with Next.js 16, Tailwind CSS 4, and `next-theme
 - **Search** — powered by Genius API with cover art and rich metadata
 - **Lyrics** — fetched from lrclib (free, no key required)
 
+## Screenshots
+
+### Home Page
+![Home page – top 10 songs with expandable lyrics](./public/screenshots/home.svg)
+
+### Search Results
+![Search results powered by Genius API](./public/screenshots/search.svg)
+
+### Lyrics View
+![Inline lyrics expanded from lrclib](./public/screenshots/lyrics.svg)
+
 ## Stack
 
 - **Next.js 16** (App Router, SSR)
