@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+  <rect width="1280" height="800" fill="#0d0d0d"/>
+  <rect width="1280" height="50" fill="#111111"/>
+  <text x="20" y="32" font-family="Arial" font-size="18" font-weight="bold" fill="#a855f7">&#9835; LyricFinder</text>
+  <circle cx="1260" cy="25" r="10" fill="#f59e0b"/>
+  <!-- Song header -->
+  <rect x="420" y="70" width="700" height="120" rx="8" fill="#1a1a1a"/>
+  <rect x="435" y="85" width="80" height="80" rx="6" fill="#374151"/>
+  <text x="530" y="115" font-family="Arial" font-size="20" font-weight="bold" fill="white">Choosin' Texas</text>
+  <text x="530" y="140" font-family="Arial" font-size="15" fill="#9ca3af">Ella Langley</text>
+  <text x="530" y="163" font-family="Arial" font-size="13" fill="#6b7280">Album: Ella Langley</text>
+  <!-- Lyrics label -->
+  <text x="420" y="225" font-family="Arial" font-size="14" font-weight="bold" fill="#6b7280" letter-spacing="2">LYRICS</text>
+  <!-- Lyrics content -->
+  <rect x="420" y="235" width="700" height="480" rx="8" fill="#111111" stroke="#1f2937" stroke-width="1"/>
+  <text x="440" y="270" font-family="Arial" font-size="14" fill="#e5e7eb">Just when I thought I got him to fall in love with Tennessee</text>
+  <text x="440" y="292" font-family="Arial" font-size="14" fill="#e5e7eb">I shoulda known better than to take him back to Abilene</text>
+  <text x="440" y="314" font-family="Arial" font-size="14" fill="#e5e7eb">I put him right back into her arms</text>
+  <text x="440" y="336" font-family="Arial" font-size="14" fill="#e5e7eb">I wasn't a match for that kinda spark</text>
+  <text x="440" y="373" font-family="Arial" font-size="14" fill="#e5e7eb">She's from Texas I can tell by the way</text>
+  <text x="440" y="395" font-family="Arial" font-size="14" fill="#e5e7eb">He's two steppin' round the room</text>
+  <text x="440" y="417" font-family="Arial" font-size="14" fill="#e5e7eb">And judgin' by the smile that's written on his face</text>
+  <text x="440" y="439" font-family="Arial" font-size="14" fill="#e5e7eb">There's nothin' I can to do</text>
+  <text x="440" y="461" font-family="Arial" font-size="14" fill="#e5e7eb">It doesn't take a crystal ball to see</text>
+  <text x="440" y="483" font-family="Arial" font-size="14" fill="#e5e7eb">A cowboy always finds a way to leave</text>
+  <text x="440" y="505" font-family="Arial" font-size="14" fill="#e5e7eb">Drinkin' Jack all by myself</text>
+  <text x="440" y="527" font-family="Arial" font-size="14" fill="#e5e7eb">He's choosin' Texas I can tell</text>
+  <text x="440" y="564" font-family="Arial" font-size="14" fill="#9ca3af" font-style="italic">Source: lrclib</text>
+</svg>
