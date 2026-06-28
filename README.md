@@ -1,37 +1,54 @@
-# LyricFinder App || Refactored using React Hooks
+# LyricFinder
 
-> App that finds song lyrics using React and the Musixmatch API.
+Search for song lyrics powered by the [Musixmatch API](https://developer.musixmatch.com).
 
-## Musixmatch API
+Built with Next.js 16, React 19, and Bootstrap 5. Deployable on Vercel with zero config.
 
-Get your API key and add to the .ENV file
+## Stack
 
-[https://developer.musixmatch.com](https://developer.musixmatch.com)
+- **Next.js 16** (App Router) — SSR home page, dynamic lyrics page, API route proxy
+- **React 19**
+- **Bootstrap 5**
+- **Musixmatch API** — track search and lyrics
 
-## Quick Start
+## Getting Started
 
-```bash
-# Install dependencies
-npm install
+### 1. Get a Musixmatch API key
 
-# Serve on localhost:3000
-npm start
+Sign up at [developer.musixmatch.com](https://developer.musixmatch.com) and grab your free API key.
 
-# Build for production
-npm run build
+### 2. Add environment variable
+
+Create a `.env.local` file in the project root:
+
+```
+MUSIXMATCH_API_KEY=your_api_key_here
 ```
 
-## App Info
+### 3. Install and run
 
-### Author
+```bash
+npm install
+npm run dev
+```
 
-Brad Traversy
-[Traversy Media](http://www.traversymedia.com)
+Open [http://localhost:3000](http://localhost:3000).
 
-### Version
+## Scripts
 
-1.0.0
+```bash
+npm run dev      # development server
+npm run build    # production build
+npm start        # serve production build
+```
 
-### License
+## Deploy to Vercel
 
-This project is licensed under the MIT License
+1. Push to GitHub
+2. Import the repo at [vercel.com](https://vercel.com)
+3. Add `MUSIXMATCH_API_KEY` in project settings → Environment Variables
+4. Deploy
+
+## License
+
+MIT
