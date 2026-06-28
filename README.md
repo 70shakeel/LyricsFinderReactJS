@@ -1,16 +1,20 @@
 # LyricFinder
 
-Search for songs via the [Genius API](https://genius.com/developers) and read full lyrics powered by [lrclib.net](https://lrclib.net).
+A dark-mode lyrics finder built with Next.js 16, Tailwind CSS 4, and `next-themes`.
 
-Built with Next.js 16, React 19, and Bootstrap 5. Deployable on Vercel.
+- **Home page** — top 10 US songs from iTunes with expandable inline lyrics
+- **Search** — powered by Genius API with cover art and rich metadata
+- **Lyrics** — fetched from lrclib (free, no key required)
 
 ## Stack
 
-- **Next.js 16** (App Router)
+- **Next.js 16** (App Router, SSR)
 - **React 19**
-- **Bootstrap 5**
-- **Genius API** — song search, cover art, and metadata
-- **lrclib API** — full lyrics text (free, no key required)
+- **Tailwind CSS 4**
+- **next-themes** — dark/light mode toggle
+- **Genius API** — song search, cover art, metadata
+- **lrclib API** — full lyrics text (free, no key)
+- **iTunes RSS** — top 10 chart tracks (free, no key)
 
 ## Getting Started
 

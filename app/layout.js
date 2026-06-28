@@ -1,25 +1,22 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
 import './globals.css'
 import Navbar from '@/components/Navbar'
+import ThemeProvider from '@/components/ThemeProvider'
 
 export const metadata = {
   title: 'LyricFinder | Find lyrics for your favorite songs',
-  description: 'Search for lyrics to any song using the Musixmatch database.',
+  description: 'Search for lyrics to any song.',
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-          crossOrigin="anonymous"
-        />
-      </head>
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <Navbar />
-        <div className="container mt-4">{children}</div>
+        <ThemeProvider>
+          <Navbar />
+          <main style={{ maxWidth: '900px', margin: '0 auto', padding: '32px 16px' }}>
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   )
