@@ -24,6 +24,7 @@ Create a `.env.local` file in the project root:
 ```
 GENIUS_CLIENT_ID=your_client_id
 GENIUS_CLIENT_SECRET=your_client_secret
+GENIUS_ACCESS=your_client_access_token
 ```
 
 ### 3. Install and run
@@ -47,7 +48,7 @@ npm start        # serve production build
 
 1. Push to GitHub
 2. Import the repo at [vercel.com](https://vercel.com)
-3. Add `GENIUS_CLIENT_ID` and `GENIUS_CLIENT_SECRET` in project settings → Environment Variables
+3. Add `GENIUS_CLIENT_ID`, `GENIUS_CLIENT_SECRET`, and `GENIUS_ACCESS` in project settings → Environment Variables
 4. Deploy
 
 > **Note:** The Genius API returns song metadata but not lyrics text directly. The "Read Lyrics on Genius" button links to the full lyrics page on genius.com.
