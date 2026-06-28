@@ -3,13 +3,15 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 export async function generateMetadata({ params }) {
-  const song = await getSong(params.id)
+  const { id } = await params
+  const song = await getSong(id)
   if (!song) return { title: 'Song | LyricFinder' }
   return { title: `${song.title} – ${song.primary_artist?.name} | LyricFinder` }
 }
 
 export default async function LyricsPage({ params }) {
-  const song = await getSong(params.id)
+  const { id } = await params
+  const song = await getSong(id)
   if (!song) notFound()
 
   return (
