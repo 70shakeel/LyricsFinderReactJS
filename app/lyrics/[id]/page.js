@@ -1,25 +1,17 @@
-import { getTrack } from '@/lib/lrclib'
+import { getSong } from '@/lib/genius'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 export async function generateMetadata({ params }) {
-  const track = await getTrack(params.id)
-  if (!track) return { title: 'Lyrics | LyricFinder' }
-  return { title: `${track.trackName} – ${track.artistName} | LyricFinder` }
-}
-
-function formatDuration(seconds) {
-  if (!seconds) return 'N/A'
-  const m = Math.floor(seconds / 60)
-  const s = Math.floor(seconds % 60).toString().padStart(2, '0')
-  return `${m}:${s}`
+  const song = await getSong(params.id)
+  if (!song) return { title: 'Song | LyricFinder' }
+  return { title: `${song.title} – ${song.primary_artist?.name} | LyricFinder` }
 }
 
 export default async function LyricsPage({ params }) {
-  const track = await getTrack(params.id)
-  if (!track) notFound()
-
-  const lyrics = track.plainLyrics || track.syncedLyrics?.replace(/\[\d{2}:\d{2}\.\d+\] ?/g, '') || null
+  const song = await getSong(params.id)
+  if (!song) notFound()
 
   return (
     <>
@@ -28,34 +20,58 @@ export default async function LyricsPage({ params }) {
       </Link>
 
       <div className="card mb-4">
-        <h5 className="card-header">
-          {track.trackName}{' '}
-          <span className="text-secondary fw-normal">by {track.artistName}</span>
-        </h5>
-        <div className="card-body">
-          {track.instrumental ? (
-            <p className="text-muted fst-italic">This is an instrumental track.</p>
-          ) : (
-            <p className="card-text" style={{ whiteSpace: 'pre-line' }}>
-              {lyrics || 'Lyrics not available.'}
-            </p>
+        <div className="card-body d-flex gap-4 flex-wrap">
+          {song.song_art_image_url && (
+            <Image
+              src={song.song_art_image_url}
+              alt={song.title}
+              width={180}
+              height={180}
+              className="rounded flex-shrink-0"
+              style={{ objectFit: 'cover' }}
+            />
           )}
+          <div>
+            <h4 className="mb-1">{song.title}</h4>
+            <p className="text-secondary mb-2">{song.primary_artist?.name}</p>
+            {song.description?.plain && (
+              <p className="text-muted small">{song.description.plain}</p>
+            )}
+            <a
+              href={song.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-warning"
+            >
+              <i className="fas fa-external-link-alt me-2" />
+              Read Lyrics on Genius
+            </a>
+          </div>
         </div>
       </div>
 
       <ul className="list-group mb-5">
+        {song.album && (
+          <li className="list-group-item">
+            <strong>Album</strong>: {song.album.name}
+          </li>
+        )}
+        {song.release_date_for_display && (
+          <li className="list-group-item">
+            <strong>Release Date</strong>: {song.release_date_for_display}
+          </li>
+        )}
         <li className="list-group-item">
-          <strong>Album</strong>: {track.albumName || 'N/A'}
+          <strong>Pageviews</strong>: {song.stats?.pageviews?.toLocaleString() ?? 'N/A'}
         </li>
-        <li className="list-group-item">
-          <strong>Duration</strong>: {formatDuration(track.duration)}
-        </li>
-        <li className="list-group-item">
-          <strong>Instrumental</strong>: {track.instrumental ? 'Yes' : 'No'}
-        </li>
-        <li className="list-group-item">
-          <strong>Synced Lyrics</strong>: {track.syncedLyrics ? 'Available' : 'Not available'}
-        </li>
+        {song.primary_artist && (
+          <li className="list-group-item">
+            <strong>Artist</strong>:{' '}
+            <a href={song.primary_artist.url} target="_blank" rel="noopener noreferrer">
+              {song.primary_artist.name}
+            </a>
+          </li>
+        )}
       </ul>
     </>
   )
