@@ -1,4 +1,5 @@
 import { getSong } from '@/lib/genius'
+import { getLyrics } from '@/lib/lrclib'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -13,6 +14,8 @@ export default async function LyricsPage({ params }) {
   const { id } = await params
   const song = await getSong(id)
   if (!song) notFound()
+
+  const lyrics = await getLyrics(song.title, song.primary_artist?.name)
 
   return (
     <>
@@ -36,45 +39,31 @@ export default async function LyricsPage({ params }) {
           <div>
             <h4 className="mb-1">{song.title}</h4>
             <p className="text-secondary mb-2">{song.primary_artist?.name}</p>
-            {song.description?.plain && (
-              <p className="text-muted small">{song.description.plain}</p>
+            {song.album && <p className="text-muted small mb-1"><strong>Album:</strong> {song.album.name}</p>}
+            {song.release_date_for_display && (
+              <p className="text-muted small mb-0"><strong>Released:</strong> {song.release_date_for_display}</p>
             )}
-            <a
-              href={song.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-warning"
-            >
-              <i className="fas fa-external-link-alt me-2" />
-              Read Lyrics on Genius
-            </a>
           </div>
         </div>
       </div>
 
-      <ul className="list-group mb-5">
-        {song.album && (
-          <li className="list-group-item">
-            <strong>Album</strong>: {song.album.name}
-          </li>
-        )}
-        {song.release_date_for_display && (
-          <li className="list-group-item">
-            <strong>Release Date</strong>: {song.release_date_for_display}
-          </li>
-        )}
-        <li className="list-group-item">
-          <strong>Pageviews</strong>: {song.stats?.pageviews?.toLocaleString() ?? 'N/A'}
-        </li>
-        {song.primary_artist && (
-          <li className="list-group-item">
-            <strong>Artist</strong>:{' '}
-            <a href={song.primary_artist.url} target="_blank" rel="noopener noreferrer">
-              {song.primary_artist.name}
-            </a>
-          </li>
-        )}
-      </ul>
+      <div className="card mb-5">
+        <div className="card-header fw-semibold">Lyrics</div>
+        <div className="card-body">
+          {lyrics ? (
+            <p className="card-text" style={{ whiteSpace: 'pre-line' }}>
+              {lyrics}
+            </p>
+          ) : (
+            <p className="text-muted fst-italic mb-0">
+              Lyrics not found.{' '}
+              <a href={song.url} target="_blank" rel="noopener noreferrer">
+                View on Genius →
+              </a>
+            </p>
+          )}
+        </div>
+      </div>
     </>
   )
 }

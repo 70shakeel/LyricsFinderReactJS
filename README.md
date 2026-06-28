@@ -1,21 +1,22 @@
 # LyricFinder
 
-Search for songs powered by the [Genius API](https://genius.com/developers). View song metadata, album art, release info, and jump straight to the full lyrics on Genius.
+Search for songs via the [Genius API](https://genius.com/developers) and read full lyrics powered by [lrclib.net](https://lrclib.net).
 
 Built with Next.js 16, React 19, and Bootstrap 5. Deployable on Vercel.
 
 ## Stack
 
-- **Next.js 16** (App Router) — SSR song detail page, API route proxy for search
+- **Next.js 16** (App Router)
 - **React 19**
 - **Bootstrap 5**
-- **Genius API** — song search, metadata, and album art
+- **Genius API** — song search, cover art, and metadata
+- **lrclib API** — full lyrics text (free, no key required)
 
 ## Getting Started
 
 ### 1. Get a Genius API key
 
-Sign up at [genius.com/developers](https://genius.com/developers), create an app, and grab your **Client Secret** (used as a Bearer token for server-to-server calls).
+Sign up at [genius.com/developers](https://genius.com/developers), create an app, and copy the **Client Access Token** from your app's settings page.
 
 ### 2. Add environment variables
 
@@ -50,8 +51,6 @@ npm start        # serve production build
 2. Import the repo at [vercel.com](https://vercel.com)
 3. Add `GENIUS_CLIENT_ID`, `GENIUS_CLIENT_SECRET`, and `GENIUS_ACCESS` in project settings → Environment Variables
 4. Deploy
-
-> **Note:** The Genius API returns song metadata but not lyrics text directly. The "Read Lyrics on Genius" button links to the full lyrics page on genius.com.
 
 ## License
 
